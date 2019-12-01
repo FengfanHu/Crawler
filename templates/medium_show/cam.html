@@ -1,0 +1,33 @@
+{% for obj in obj_array %}
+<!--Title and Audio-->
+<div class="row align-items-center mb-3">
+  <div class="col-5">
+    <h4 class="card-title">{{ obj.title }}</h4>
+    <h6 class="card-subtitle text-muted" title="{{ obj.label[0] }}">
+      {% if obj.rank %}
+      <span class="badge badge-pill badge-primary mb-8">{{ obj.rank }}</span>
+      {% endif %}
+      {{ obj.label[1] }}
+      {{ obj.audio_symbol }}
+    </h6>
+  </div>
+  <audio controls class="col-6" src="{{ obj.audio_src }}">
+  </audio>
+</div>
+<hr>
+<!--Define and Trans-->
+<b class="card-text" style="color:#1d2a57">
+  {{ obj.define }}
+</b>
+<p class="card-text" style="color:#0580e8">
+  {{ obj.trans }}
+</p>
+<!--Examples-->
+<div class="mb-3" style="border-bottom: solid 3px #5d2fc1">
+  <p style="color:#5d2fc1 font-weight-bold">Examples:</p>
+  {% for example in obj.examples %}
+  <p class="font-italic">{{ example[0] }}</p>
+  <p class="font-weight-lighter">{{ example[1] }}</p>
+  {% endfor %}
+</div>
+{% endfor %}

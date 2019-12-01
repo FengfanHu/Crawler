@@ -1,0 +1,49 @@
+{% extends 'layout/layout.html' %}
+{% block title %}Search{% endblock title %}
+{% block content %}
+<div class="jumbotron px-5" style="height:100%">
+  <div class="card" style="overflow:scroll; height:570px">
+    <div class="row p-5">
+      <!-- Left show board -->
+      <div class="col-2 list-group">
+        <a href="{{ url_for('cam_show', word=word) }}" 
+        class="list-group-item list-group-item-action
+        {% if temple == 1 %}active{% endif %}
+        ">Cambridge Dic</a>
+        <a href="{{ url_for('oxf_show', word=word) }}" 
+        class="list-group-item list-group-item-action
+        {% if temple == 2 %}active{% endif %}
+        ">Oxford Dic</a>
+      </div>
+      <!-- Medium show board -->
+      <div class="col-6 border-right px-5">
+        {% if temple == 1 %}
+          {% include 'medium_show/cam.html' %}
+        {% endif %}
+        {% if temple == 2 %}
+          {% include 'medium_show/oxf.html' %}
+        {% endif %}
+      </div>
+      <!-- Right show board -->
+      <div class="col-4">
+        {% if temple == 1 %}
+          <p><b class="font-italic text-success">Browse More:</b></p>
+          {% for item in item_array %}
+            {% if item %}
+              <p><a href="{{item['title']}}">{{ item['title'] }}</a></p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if temple == 2 %}
+          <p><b class="font-italic text-success">Browse More:</b></p>
+          {% for item in item_array %}
+            {% if item %}
+              <p><a href="{{item.get_text().split(' ')[0] }}">{{ item.get_text() }}</a></p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'layout/layout.html' %}
+{% block title %}index{% endblock title %}
+{% block content %}
+<div class="jumbotron px-5" style="height:100%">
+  <h1 class="display-4">Welcome to Efficency!</h1>
+  <p class="lead">This is an application for consulting kinds of dictionaries via browsers.</p>
+  <hr class="my-4">
+  <h4>Material sources:</h4>
+  <!-- Cambridge Dictionary -->
+  <div class="row no-gutters bg-light position-relative">
+    <div class="col-md-4 mb-md-0 p-md-4 border-right align-items-center" style="background-color:#191948">
+      <img src={{ url_for('static', filename='camdic-icon.png') }} class="w-20" alt="Cambridge Dictionary">
+    </div>
+    <div class="col-md-7 position-static p-4 pl-md-0 ml-5">
+      <h5 class="mt-0">Cambridge Dictionary</h5>
+      <p>The most popular dictionary and thesaurus for learners of English.
+        Meanings and definitions of words with pronunciations and translations.</p>
+      <a href="https://dictionary.cambridge.org/" class="stretched-link">Click here to the official website.</a>
+    </div>
+  </div>
+  <!-- Oxford Dictionary -->
+  <div class="row no-gutters bg-light position-relative mt-3 align-items-center">
+    <div class="col-md-4 mb-md-0 p-md-4 bg-light border-right">
+      <img src={{ url_for('static', filename='oxfdic-icon.svg') }} class="w-20" alt="Oxford Dictionary">
+    </div>
+    <div class="col-md-7 position-static p-4 pl-md-0 ml-5">
+      <h5 class="mt-0">Oxford Dictionary</h5>
+      <p>The largest and most trusted free online dictionary for learners of British
+        and American English with definitions, pictures, example sentences, synonyms, ...</p>
+      <a href="https://www.oxfordlearnersdictionaries.com/" class="stretched-link">Click here to the official
+        website.</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+<nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <a class="navbar-brand ml-5 mr-2" href="{{url_for('index')}}">
+    <h3>Efficiency</h3>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
+    <form class="form-inline" method="POST" action="{{url_for('search')}}" >
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Efficient search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

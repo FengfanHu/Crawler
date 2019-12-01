@@ -1,0 +1,32 @@
+<!--Title and Audio-->
+<div class="row align-items-center mb-3">
+  <div class="col-5">
+    <h4 class="card-title">{{ obj.title }}</h4>
+    <h6 class="card-subtitle text-muted">
+      {{ obj.label }}
+      {{ obj.audio_symbol }}
+    </h6>
+  </div>
+  <audio controls class="col-6" src="{{ obj.audio_src }}">
+  </audio>
+</div>
+<hr>
+<!--Define and Trans-->
+{% for content in obj.contents %}
+  {% if content[0] %}
+    <b class="card-text" style="color:#1d2a57">
+    {{content[0]}}
+    </b>
+  {% endif %}
+  {% if content[1] %}
+    <p class="card-text" style="color:#0580e8">
+    {{content[1]}}
+    </p>
+  {% endif %}
+  <div class="mb-3" style="border-bottom: solid 3px #5d2fc1">
+    <p style="color:#5d2fc1" class="font-weight-bold">Examples:</p>
+    {% for example in content[2] %}
+      <p class="font-italic">{{ example }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
