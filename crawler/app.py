@@ -9,14 +9,14 @@ headers = {
 }
 
 '''
-Crwaler for Cambridge Dictionary:
+Crawler for Cambridge Dictionary:
 Input:      key_word(string)
 Output:     obj_array(list)
 
 SoupStrainer is used to filiter main content
 however html5 doesn't support parse_only
 '''
-def cam_crwaler(key_word):
+def cam_crawler(key_word):
     search_url = cam_url_prefix+key_word
     response = requests.get(search_url, headers=headers)
     html_content = response.content
@@ -46,7 +46,7 @@ def cam_crwaler(key_word):
         item_array.append(link)
     return obj_array, item_array
 
-def oxf_crwaler(key_word):
+def oxf_crawler(key_word):
     search_url = oxf_url_prefix+key_word+"_1"
     response = requests.get(search_url, headers=headers)
     html_content = response.content
@@ -74,7 +74,7 @@ def oxf_crwaler(key_word):
     return ofx_obj, browse
 
 if __name__ == "__main__":
-    # parts = cam_crwaler("content")
+    # parts = cam_crawler("content")
     # print(type(parts), len(parts))
     # print(parts[0].title)
     # print(parts[0].label)
@@ -86,5 +86,5 @@ if __name__ == "__main__":
     # print(parts[0].examples)
     # print(parts[0].browse)
 
-    # oxf_crwaler('content')
+    # oxf_crawler('content')
     pass

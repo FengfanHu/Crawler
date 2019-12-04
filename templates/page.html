@@ -1,4 +1,28 @@
 {% extends 'layout/layout.html' %}
+{% block head %}
+<script>
+  $(function () {
+    function get_weather(e) {
+      $.getJSON($SCRIPT_ROOT + '/weather',{
+          province: $('input[name="province"]').val(),
+          city: $('input[name="city"]').val()
+      },
+        function (data) {
+          var body = data[0]
+          var tips = data[1]
+          $('#degree').text(body.degree),
+          $('#humidity').text(body.humidity),
+          $('#weather').text(body.weather),
+          $('#pressure').text(body.pressure),
+          $('#tip1').text(tips.observe['1']),
+          $('#tip2').text(tips.observe['0']);
+        });
+    };
+    // 绑定click事件
+    $('#wbtn').bind('click', get_weather);
+  });
+</script>
+{% endblock head %}
 {% block title %}Search{% endblock title %}
 {% block content %}
 <div class="jumbotron px-5" style="height:100%">
@@ -6,44 +30,70 @@
     <div class="row p-5">
       <!-- Left show board -->
       <div class="col-2 list-group">
-        <a href="{{ url_for('cam_show', word=word) }}" 
-        class="list-group-item list-group-item-action
+        <a href="{{ url_for('cam_show', word=word) }}" class="list-group-item list-group-item-action
         {% if temple == 1 %}active{% endif %}
         ">Cambridge Dic</a>
-        <a href="{{ url_for('oxf_show', word=word) }}" 
-        class="list-group-item list-group-item-action
+        <a href="{{ url_for('oxf_show', word=word) }}" class="list-group-item list-group-item-action
         {% if temple == 2 %}active{% endif %}
         ">Oxford Dic</a>
+        <div class="card mt-2" style="width:193px">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Weather Today</h5>
+            <h1><span id="degree"></span>°C</h1>
+            <p class="font-weight-lighter mb-0">湿度：<span id="humidity"></span></p>
+            <p class="font-weight-lighter mb-0">天气：<span id="weather"></span></p>
+            <p class="font-weight-lighter mb-0">压强：<span id="pressure"></span>帕</p>
+
+            <p class="font-weight-bold mt-3 mb-0" style="color:#5d2fc1">Tips:</p>
+            <p class="font-weight-bold mb-0"><font id="tip1" size=1></font></p>
+            <p class="font-weight-bold mb-0"><font id="tip2" size=1></font></p>
+            <!--省份-->
+            <div class="input-group input-group-sm mb-3 mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >省份</span>
+              </div>
+              <input type="text" class="form-control" name="province">
+            </div>
+            <!--城市-->
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >城市</span>
+              </div>
+              <input type="text" class="form-control" name="city">
+            </div>
+            <button type="button" id="wbtn" class="btn btn-light">查询</button>
+          </div>
+        </div>
       </div>
-      <!-- Medium show board -->
-      <div class="col-6 border-right px-5">
-        {% if temple == 1 %}
-          {% include 'medium_show/cam.html' %}
-        {% endif %}
-        {% if temple == 2 %}
-          {% include 'medium_show/oxf.html' %}
-        {% endif %}
-      </div>
-      <!-- Right show board -->
-      <div class="col-4">
-        {% if temple == 1 %}
-          <p><b class="font-italic text-success">Browse More:</b></p>
-          {% for item in item_array %}
-            {% if item %}
-              <p><a href="{{item['title']}}">{{ item['title'] }}</a></p>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-        {% if temple == 2 %}
-          <p><b class="font-italic text-success">Browse More:</b></p>
-          {% for item in item_array %}
-            {% if item %}
-              <p><a href="{{item.get_text().split(' ')[0] }}">{{ item.get_text() }}</a></p>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      </div>
+    <!-- Medium show board -->
+    <div class="col-6 border-right px-5">
+      {% if temple == 1 %}
+      {% include 'medium_show/cam.html' %}
+      {% endif %}
+      {% if temple == 2 %}
+      {% include 'medium_show/oxf.html' %}
+      {% endif %}
+    </div>
+    <!-- Right show board -->
+    <div class="col-4">
+      {% if temple == 1 %}
+      <p><b class="font-italic text-success">Browse More:</b></p>
+      {% for item in item_array %}
+      {% if item %}
+      <p><a href="{{item['title']}}">{{ item['title'] }}</a></p>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      {% if temple == 2 %}
+      <p><b class="font-italic text-success">Browse More:</b></p>
+      {% for item in item_array %}
+      {% if item %}
+      <p><a href="{{item.get_text().split(' ')[0] }}">{{ item.get_text() }}</a></p>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
+</div>
 </div>
 {% endblock content %}

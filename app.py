@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template, abort, redirect, url_for
+from flask import Flask, request, render_template, abort, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
-from crwaler import app as crwaler
+from crawler import app as crawler
+from weather import app as weather
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -22,14 +23,21 @@ def search():
 
 @app.route('/search/cam/<string:word>')
 def cam_show(word):
-  obj_array,item_array = crwaler.cam_crwaler(word)
+  obj_array,item_array = crawler.cam_crawler(word)
   return render_template('page.html',
    obj_array=obj_array, item_array=item_array, temple=CAMBRIDGE, word=word), 200
 
 @app.route('/search/oxf/<string:word>')
 def oxf_show(word):
-  obj, item_array = crwaler.oxf_crwaler(word)
+  obj, item_array = crawler.oxf_crawler(word)
   return render_template('page.html', obj=obj, item_array=item_array, temple=OXFORD, word=word), 200
+
+@app.route('/weather')
+def get_weather():
+  province = request.args.get('province',type=str)
+  city = request.args.get('city',type=str)
+  observe, tips = weather.get_weather(province, city)
+  return jsonify(observe, tips)
 
 @app.errorhandler(404)
 def page_not_found(error):

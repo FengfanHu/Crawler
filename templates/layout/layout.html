@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {{ bootstrap.load_css() }}
   {{ bootstrap.load_js() }}
+  <!-- 插入jquery -->
+  <script src="{{url_for('static', filename='jquery.js')}}"></script>
+  <script type=text/javascript>
+  var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
+  </script>
+  {% block head %}{% endblock head %}
   <title>{% block title %}{% endblock title %}-Efficiency</title>
 </head>
 
